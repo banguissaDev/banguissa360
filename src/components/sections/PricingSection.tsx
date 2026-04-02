@@ -1,5 +1,7 @@
 'use client'
 
+import { motion } from 'framer-motion'
+
 export default function PricingSection() {
   const plans = [
     {
@@ -52,23 +54,38 @@ export default function PricingSection() {
       <div className="mesh-gradient gold-glow top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10" />
       
       <div className="container mx-auto relative z-10">
-        <div className="text-center mb-16 animate-slide-up">
+        <motion.div 
+          initial={{ opacity: 0, y: -30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16"
+        >
           <div className="section-label mx-auto w-fit">
             <span className="w-2 h-2 rounded-full bg-brand" />
             Pricing
           </div>
-          <h2 className="font-heading font-extrabold text-3xl md:text-5xl mb-4">
-            Transparent <span className="bg-gradient-to-r from-brand to-yellow-300 bg-clip-text text-transparent">Pricing</span>
+          <h2 className="font-heading font-black text-4xl md:text-5xl lg:text-6xl text-slate-50 mb-6">
+            Choose Your <span className="bg-gradient-to-r from-brand to-yellow-300 bg-clip-text text-transparent">Spin</span>
           </h2>
-          <p className="text-slate-400 max-w-md mx-auto text-lg">
-            Simple, straightforward pricing for your 360 photobooth experience.
+          <p className="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">
+            Transparent pricing for unforgettable moments. Choose the package 
+            that fits your celebration.
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
           {plans.map((plan, idx) => (
-            <div
+            <motion.div
               key={idx}
+              initial={{ 
+                opacity: 0, 
+                x: idx === 0 ? -50 : idx === 2 ? 50 : 0,
+                y: plan.popular ? 50 : 0 
+              }}
+              whileInView={{ opacity: 1, x: 0, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, delay: idx * 0.1 }}
               className={`relative rounded-[1.5rem] p-8 transition-all duration-500 ${
                 plan.popular
                   ? 'bg-gradient-to-b from-brand/10 via-brand/5 to-transparent border-2 border-brand/30 scale-[1.03] shadow-[0_0_60px_rgba(244,202,84,0.1)]'
@@ -110,17 +127,14 @@ export default function PricingSection() {
                 ))}
               </ul>
 
-              <a
-                href="#contact"
-                className={`block text-center w-full py-3.5 rounded-full font-semibold text-sm transition-all duration-300 ${
-                  plan.popular
-                    ? 'btn-primary'
-                    : 'border border-slate-700 text-slate-300 hover:border-brand/40 hover:text-brand hover:bg-brand/5'
-                }`}
-              >
+              <a href="#contact" className={`w-full py-4 rounded-xl font-bold transition-all duration-300 block text-center ${
+                plan.popular 
+                  ? 'bg-brand text-dark hover:bg-yellow-400' 
+                  : 'bg-white/5 text-white hover:bg-white/10 border border-white/10'
+              }`}>
                 {plan.price === 'Custom' ? 'Contact Us' : 'Book Now'}
               </a>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

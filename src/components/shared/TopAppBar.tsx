@@ -14,9 +14,9 @@ export default function TopAppBar() {
   }, [])
 
   const navLinks = [
-    { label: 'Events', href: '#events' },
-    { label: 'Pricing', href: '#pricing' },
-    { label: 'Contact', href: '#contact' },
+    { label: 'Events', href: '/#events' },
+    { label: 'Pricing', href: '/#pricing' },
+    { label: 'Contact', href: '/contact' },
   ]
 
   return (
@@ -28,7 +28,7 @@ export default function TopAppBar() {
       }`}>
         <nav className="container mx-auto px-4 py-3.5 flex justify-between items-center">
           {/* Logo */}
-          <a href="#hero" className="flex items-center gap-3 group z-[70]">
+          <a href="/" className="flex items-center gap-3 group z-[70]">
             <div className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-xl overflow-hidden shadow-lg transition-transform duration-300 group-hover:scale-110">
               <Image 
                 src="/banguissa-logo.jpg" 
@@ -62,7 +62,7 @@ export default function TopAppBar() {
 
           <div className="flex items-center gap-4">
             {/* CTA Button (Desktop) */}
-            <a href="#pricing" className="hidden sm:flex btn-primary text-sm py-2.5 px-6">
+            <a href="/#pricing" className="hidden sm:flex btn-primary text-sm py-2.5 px-6">
               Book Now
             </a>
 
@@ -103,7 +103,7 @@ export default function TopAppBar() {
             </a>
           ))}
           <a 
-            href="#pricing"
+            href="/#pricing"
             onClick={() => setIsMenuOpen(false)}
             className="btn-primary w-full max-w-[200px] text-center mt-4"
           >

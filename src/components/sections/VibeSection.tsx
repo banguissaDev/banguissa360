@@ -1,4 +1,7 @@
+'use client'
+
 import Image from 'next/image'
+import { motion } from 'framer-motion'
 
 export default function VibeSection() {
   const vibes = [
@@ -55,24 +58,35 @@ export default function VibeSection() {
   return (
     <section id="events" className="relative py-24 px-4 overflow-hidden">
       <div className="container mx-auto relative z-10">
-        <div className="text-center mb-16 animate-slide-up">
+        <motion.div 
+          initial={{ opacity: 0, y: -30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16"
+        >
           <div className="section-label mx-auto w-fit">
             <span className="w-2 h-2 rounded-full bg-brand" />
             Events
           </div>
-          <h2 className="font-heading font-extrabold text-3xl md:text-5xl mb-4">
-            Capture the <span className="bg-gradient-to-r from-brand to-yellow-300 bg-clip-text text-transparent">Vibe</span>
+          <h2 className="font-heading font-black text-4xl md:text-5xl lg:text-6xl text-slate-50 mb-6">
+            Find Your <span className="bg-gradient-to-r from-brand to-yellow-300 bg-clip-text text-transparent">Vibe</span>
           </h2>
-          <p className="text-slate-400 max-w-md mx-auto text-lg">
-            From intimate gatherings to grand galas, we bring the 360° magic.
+          <p className="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">
+            From intimate gatherings to massive festivals, we bring the energy and 
+            the tech to make every moment unforgettable.
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {vibes.map((vibe, idx) => (
-            <a
+            <motion.a
               key={idx}
               href="#pricing"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
               className={`group relative rounded-[2rem] overflow-hidden transition-all duration-500 hover:scale-[1.02] ${vibe.size}`}
             >
               {/* Background Image */}
@@ -103,7 +117,7 @@ export default function VibeSection() {
 
               {/* Hover glow ring */}
               <div className="absolute inset-0 rounded-[2rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500 border-2 border-brand/50" />
-            </a>
+            </motion.a>
           ))}
         </div>
       </div>

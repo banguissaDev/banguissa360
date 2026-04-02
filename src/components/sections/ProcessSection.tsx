@@ -1,5 +1,7 @@
 'use client'
 
+import { motion } from 'framer-motion'
+
 export default function ProcessSection() {
   const steps = [
     {
@@ -40,25 +42,39 @@ export default function ProcessSection() {
       <div className="mesh-gradient purple-glow top-0 right-0 opacity-10" />
       
       <div className="container mx-auto relative z-10">
-        <div className="text-center mb-16 animate-slide-up">
+        <motion.div 
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16"
+        >
           <div className="section-label mx-auto w-fit">
             <span className="w-2 h-2 rounded-full bg-brand" />
             How It Works
           </div>
-          <h2 className="font-heading font-extrabold text-3xl md:text-5xl mb-4">
-            The <span className="bg-gradient-to-r from-brand to-yellow-300 bg-clip-text text-transparent">Process</span>
+          <h2 className="font-heading font-black text-4xl md:text-5xl lg:text-6xl text-slate-50 mb-6">
+            Our <span className="bg-gradient-to-r from-brand to-yellow-300 bg-clip-text text-transparent">Simple</span> Process
           </h2>
-          <p className="text-slate-400 max-w-md mx-auto text-lg">
-            Three simple steps to your unforgettable 360° moment.
+          <p className="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">
+            We've streamlined everything so you can focus on the party while 
+            we handle the 360° magic.
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto relative">
           {/* Connector line (desktop) */}
           <div className="hidden md:block absolute top-24 left-[16.67%] right-[16.67%] h-px bg-gradient-to-r from-transparent via-brand/20 to-transparent" />
           
           {steps.map((step, idx) => (
-            <div key={idx} className="relative group">
+            <motion.div 
+              key={idx} 
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: idx * 0.2 }}
+              className="relative group"
+            >
               <div className="card-dark p-8 text-center relative overflow-hidden">
                 {/* Hover gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-b from-brand/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -85,7 +101,7 @@ export default function ProcessSection() {
                   {step.description}
                 </p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

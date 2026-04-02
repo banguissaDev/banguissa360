@@ -1,9 +1,25 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import Script from 'next/script'
+import { motion } from 'framer-motion'
 
 export default function HeroSection() {
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+    
+    // Load Tenor script if not already present
+    if (!document.getElementById('tenor-script')) {
+      const script = document.createElement('script')
+      script.id = 'tenor-script'
+      script.src = 'https://tenor.com/embed.js'
+      script.async = true
+      document.body.appendChild(script)
+    }
+  }, [])
+
   return (
     <section id="hero" className="relative min-h-[auto] lg:min-h-screen flex items-center pt-32 pb-16 lg:pt-20 lg:pb-16 px-4 overflow-hidden">
       {/* Background mesh gradients */}
@@ -30,7 +46,12 @@ export default function HeroSection() {
       <div className="container mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Text Content */}
-          <div className="animate-slide-up">
+          <motion.div 
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
             <div className="section-label">
               <span className="w-2 h-2 rounded-full bg-brand animate-pulse-glow" />
               360° Photobooth Rentals
@@ -43,13 +64,25 @@ export default function HeroSection() {
               </span>
             </h1>
             
-            <p className="text-slate-400 text-lg md:text-xl mb-10 max-w-lg leading-relaxed">
+            <motion.p 
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+              className="text-slate-400 text-lg md:text-xl mb-10 max-w-lg leading-relaxed"
+            >
               Capture the immersive magic of 360-degree videos. 
               Experience <span className="text-slate-200 font-medium">kinetic elegance</span> at every moment.
-            </p>
+            </motion.p>
             
-            <div className="flex gap-4 flex-wrap animate-slide-up-delayed">
-              <a href="#pricing" className="btn-primary flex items-center gap-3">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="flex gap-4 flex-wrap"
+            >
+              <a href="/#pricing" className="btn-primary flex items-center gap-3">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                 Get Started
               </a>
@@ -57,7 +90,7 @@ export default function HeroSection() {
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                 View Showreel
               </a>
-            </div>
+            </motion.div>
 
             {/* Trust indicators */}
             <div className="mt-12 flex items-center gap-6 text-sm text-slate-500">
@@ -76,46 +109,58 @@ export default function HeroSection() {
               <div className="w-px h-4 bg-slate-700" />
               <div>Kigali, Rwanda</div>
             </div>
-          </div>
+          </motion.div>
           
           {/* Hero GIF visual */}
-          <div className="relative animate-scale-in">
+          <motion.div 
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="relative"
+          >
             {/* Decorative ring */}
             <div className="absolute -inset-4 rounded-[2.5rem] border border-brand/15 animate-pulse-glow" />
             
-            <div className="relative aspect-square lg:h-[34rem] lg:w-[34rem] rounded-[2.5rem] overflow-hidden border-2 border-white/5 shadow-2xl group mx-auto">
-              {/* Tenor GIF Embed */}
-              <div 
-                className="tenor-gif-embed" 
-                data-postid="21460316" 
-                data-share-method="host" 
-                data-aspect-ratio="1" 
-                data-width="100%"
-              >
-                <a href="https://tenor.com/view/ponste55-gif-21460316">Ponste55 GIF</a>
-                from <a href="https://tenor.com/search/ponste55-gifs">Ponste55 GIFs</a>
+            <div className="relative rounded-[2rem] overflow-hidden aspect-square shadow-2xl border border-white/10 group">
+              {/* Logo Background with low opacity */}
+              <div className="absolute inset-0 z-0 opacity-20 group-hover:opacity-30 transition-opacity duration-700">
+                <Image 
+                  src="/banguissa-logo.jpg" 
+                  alt="Background Texture" 
+                  fill 
+                  className="object-cover scale-150 rotate-12 blur-[2px]"
+                />
               </div>
               
-              <Script 
-                src="https://tenor.com/embed.js" 
-                strategy="afterInteractive" 
-              />
+              {/* The GIF provided by user */}
+              <div className="absolute inset-0 z-10 flex items-center justify-center p-4">
+                <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(244,202,84,0.15)]">
+                  {isMounted ? (
+                    <div 
+                      className="w-full h-full"
+                      dangerouslySetInnerHTML={{ __html: `
+                        <div class="tenor-gif-embed" data-postid="21460316" data-share-method="host" data-aspect-ratio="1" data-width="100%">
+                          <a href="https://tenor.com/view/ponste55-gif-21460316"></a>
+                        </div>
+                      `}}
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-slate-900/50 animate-pulse" />
+                  )}
+                </div>
+              </div>
 
-              {/* Gradient Overlay for card feeling */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#050508] via-transparent to-transparent opacity-40 z-10" />
-              
-              {/* Floating badge */}
-              <div className="absolute bottom-6 left-6 right-6 glassmorphism rounded-2xl p-4 flex items-center gap-4 z-20">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-brand to-yellow-600 flex items-center justify-center text-dark font-bold text-lg shrink-0">
-                  360°
-                </div>
-                <div>
-                  <p className="text-slate-200 font-semibold text-sm">Full Momentum</p>
-                  <p className="text-slate-400 text-xs text-nowrap">Cinematic 360° Revolution</p>
-                </div>
-              </div>
+              {/* Bottom Glow */}
+              <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-brand/20 via-transparent to-transparent z-20 pointer-events-none" />
             </div>
-          </div>
+
+            {/* Float Badge */}
+            <div className="absolute -bottom-6 -right-6 bg-brand text-dark p-6 rounded-3xl shadow-2xl shadow-brand/20 hidden md:block animate-float">
+              <div className="font-heading font-black text-2xl leading-tight">#1</div>
+              <div className="text-[10px] font-bold uppercase tracking-wider opacity-80">Choice in Kigali</div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>

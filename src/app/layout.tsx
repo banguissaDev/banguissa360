@@ -1,5 +1,8 @@
 import type { Metadata } from 'next'
 import '@/styles/globals.css'
+import TopAppBar from '@/components/shared/TopAppBar'
+import BottomNavBar from '@/components/shared/BottomNavBar'
+import Footer from '@/components/shared/Footer'
 
 export const metadata: Metadata = {
   title: 'Banguissa 360 - Premium Photobooth Rentals',
@@ -20,7 +23,12 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className="bg-slate-950 text-slate-50">
-        {children}
+        <TopAppBar />
+        <main className="min-h-screen bg-[#050508] overflow-x-hidden">
+          {children}
+        </main>
+        <Footer />
+        <BottomNavBar />
       </body>
     </html>
   )

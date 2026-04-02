@@ -1,5 +1,7 @@
 'use client'
 
+import { motion } from 'framer-motion'
+
 export default function ImpactSection() {
   return (
     <section className="relative py-24 px-4 overflow-hidden">
@@ -18,7 +20,12 @@ export default function ImpactSection() {
           }} />
 
           <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-            <div>
+            <motion.div 
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/10 text-dark text-xs font-bold uppercase tracking-wider mb-6">
                 <span className="w-2 h-2 rounded-full bg-dark" />
                 Community Impact
@@ -36,22 +43,29 @@ export default function ImpactSection() {
 
               {/* Stats */}
               <div className="flex flex-wrap gap-8 mb-8">
-                <div>
+                <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
                   <div className="text-3xl font-heading font-extrabold text-dark">15+</div>
                   <div className="text-sm text-slate-800/60">Free Events</div>
-                </div>
-                <div>
+                </motion.div>
+                <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }}>
                   <div className="text-3xl font-heading font-extrabold text-dark">2,000+</div>
                   <div className="text-sm text-slate-800/60">People Reached</div>
-                </div>
-                <div>
+                </motion.div>
+                <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.4 }}>
                   <div className="text-3xl font-heading font-extrabold text-dark">100%</div>
                   <div className="text-sm text-slate-800/60">Community Love</div>
-                </div>
+                </motion.div>
               </div>
-            </div>
+              <p className="text-slate-950 font-semibold">Apply for your 0-cost event now.</p>
+            </motion.div>
 
-            <div className="flex justify-center lg:justify-end">
+            <motion.div 
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="flex justify-center lg:justify-end"
+            >
               <a href="#contact" className="group relative w-full max-w-sm py-5 px-8 bg-slate-950 text-brand rounded-2xl font-heading font-bold text-lg text-center transition-all duration-300 hover:bg-slate-900 hover:shadow-[0_0_40px_rgba(0,0,0,0.3)] hover:scale-105 overflow-hidden">
                 <span className="relative z-10 flex items-center justify-center gap-3">
                   Apply for 0-Cost Event
@@ -60,9 +74,9 @@ export default function ImpactSection() {
                   </svg>
                 </span>
                 {/* Button shine effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-brand/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-transparent via-brand/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               </a>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
